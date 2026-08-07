@@ -592,6 +592,14 @@ unless you specify it as deployment setting, such as the `--with_ui` option for
 
     For a full list of deployment options, see the [`gcloud run deploy` reference documentation](https://cloud.google.com/sdk/gcloud/reference/run/deploy).
 
+## Deploy with Agents CLI
+
+[Agents CLI in Agent Platform](https://google.github.io/agents-cli/) adds a
+container build, CI/CD pipelines, and Terraform configuration to an existing ADK
+project, then deploys it to Cloud Run. For the full deployment reference, see
+the
+[Agents CLI deployment guide](https://google.github.io/agents-cli/guide/deployment/).
+
 ## Test your agent
 
 Once your agent is deployed to Cloud Run, you can interact with it via the deployed UI, if enabled, or directly with its API endpoints using tools like `curl`. You'll need the service URL provided after deployment.

@@ -95,8 +95,8 @@ unless you specify it as deployment setting, such as the `--with_ui` option for
 
 ## Deployment options
 
-You can deploy your agent to GKE either **manually using Kubernetes
-manifests** or **automatically using the `adk deploy gke` command**.
+You can deploy your agent to GKE **manually using Kubernetes manifests**,
+**automatically using the `adk deploy gke` command**, or **using Agents CLI**.
 Choose the approach that best suits your workflow.
 
 ## Option 1: Manual deployment using gcloud and kubectl
@@ -704,6 +704,14 @@ You can then access your agent at `http://localhost:8080`.
 If you deployed with `--service_type=LoadBalancer`, it may take a few minutes for an external IP to be assigned.
 Once the `EXTERNAL-IP` is available, you can navigate to it to interact with your agent.
 ![alt text](../assets/agent-gke-deployment.png)
+
+## Option 3: Automated deployment using Agents CLI
+
+[Agents CLI in Agent Platform](https://google.github.io/agents-cli/) adds a
+container build, CI/CD pipelines, and Terraform configuration to an existing ADK
+project, then deploys it to GKE with Terraform and `kubectl`. For the full
+deployment reference, see the
+[Agents CLI deployment guide](https://google.github.io/agents-cli/guide/deployment/).
 
 ## Test your agent
 
