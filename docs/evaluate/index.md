@@ -484,6 +484,7 @@ As a developer, you can evaluate your agents using the ADK in the following ways
 - **Programmatically (**`pytest`**)**: Integrate evaluation into your testing pipeline using `pytest` and test files.
 - **Command Line Interface (**`adk eval`**):** Run evaluations on an existing evaluation set file directly from the command line.
 - **Conformance Testing** (**`adk conformance`**):** Execute automated tests against your baseline files to detect unexpected deviations or regressions.
+- **Agents CLI (**`agents-cli eval`**):** Run a two-step, generate-and-grade evaluation workflow.
 
 ### Run evaluations via the web UI
 
@@ -641,3 +642,36 @@ adk conformance test --generate_report --report_dir=reports
 
 #### Automate with CI/CD
 Because adk conformance test is a command-line tool that fails if things don't match, it is highly useful for CI/CD pipelines. You can set it up to run automatically whenever someone opens a pull request, blocking any code from merging if it changes the agent's expected behavior.
+
+### Run evaluations with Agents CLI
+
+[Agents CLI in Agent Platform](https://google.github.io/agents-cli/) provides a
+separate evaluation workflow for ADK agents, built on the Agent Platform Eval
+SDK. The workflow has two steps: `generate` runs your agent over a dataset and
+records each run's outputs, and `grade` scores those outputs against the
+configured metrics.
+
+```shell
+agents-cli eval generate
+agents-cli eval grade
+```
+
+Agents CLI adds four more evaluation commands:
+
+* `agents-cli eval dataset synthesize` creates eval cases for you.
+* `agents-cli eval compare` diffs two runs.
+* `agents-cli eval analyze` groups failures by cause.
+* `agents-cli eval optimize` iterates on your agent's instructions.
+
+!!! warning "Different dataset format"
+
+    Agents CLI evaluations read `tests/eval/datasets/*-dataset.json` and
+    `tests/eval/eval_config.yaml`, not the ADK `.test.json` and `.evalset.json`
+    files described above. The two formats are not interchangeable. If you have
+    existing ADK eval set files, see
+    [Migrating eval datasets](https://google.github.io/agents-cli/reference/eval-dataset-migration/).
+
+For metrics, dataset schemas, and the full eval-fix loop, see the
+[Agents CLI evaluation guide](https://google.github.io/agents-cli/guide/evaluation/).
+If you use a coding agent, the `google-agents-cli-eval` skill covers this
+workflow, including selecting metrics and diagnosing common failure causes.
